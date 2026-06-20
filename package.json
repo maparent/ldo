@@ -34,12 +34,27 @@
     "lerna": "^7.2.0",
     "prettier": "3.0.3",
     "publint": "^0.3.18",
-    "tsdown": "^0.21.4",
+    "tsdown": "^0.22.3",
     "typescript": "^5.2.2",
     "vitest": "^3.1.3"
   },
   "optionalDependencies": {
     "@nx/nx-linux-x64-gnu": "16.10.0",
     "@rolldown/binding-linux-x64-gnu": "1.0.0-beta.9-commit.d91dfb5"
+  },
+  "overrides": {
+    "@types/rdfjs__dataset": "2.0.7",
+    "@rdfjs/types": "2.0.1",
+    "@rdfjs/dataset": "2.0.2",
+    "@rdfjs/data-model": "2.1.1",
+    "@rdfjs/parser-jsonld": "2.1.3",
+    "@rdfjs/parser-n3": "2.1.0",
+    "@rdfjs/serializer-jsonld": "2.0.1",
+    "@rdfjs/sink": "2.0.1",
+    "@rdfjs/sink-map": "2.0.1",
+    "@rdfjs/namespace": "2.0.1",
+    "@rdfjs/to-ntriples": "3.0.1",
+    "@rdfjs/serializer-ntriples": "2.0.1",
+    "@rdfjs/term-set": "2.0.3"
   }
 }

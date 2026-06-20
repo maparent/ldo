@@ -12,7 +12,7 @@ export function getNodeFromRawObject(
   if (item[_getUnderlyingNode]) {
     return item[_getUnderlyingNode] as NamedNode | BlankNode;
   } else if (!item["@id"]) {
-    return blankNode();
+    return blankNode("");
   } else if (typeof item["@id"] === "string") {
     // Purposly do not include typeName because we don't want to reference
     // nested context
@@ -41,7 +41,7 @@ export function getNodeFromRawValue(
     } else if (datatype === "@id") {
       return namedNode(value.toString());
     } else {
-      return literal(value.toString(), datatype);
+      return literal(value.toString(), namedNode(datatype));
     }
   } else if (
     typeof value.termType === "string" &&

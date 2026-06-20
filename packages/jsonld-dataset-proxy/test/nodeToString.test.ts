@@ -9,7 +9,7 @@ describe("nodeToString", () => {
     );
     expect(nodeToString(blankNode("_b1"))).toBe("blankNode(_b1)");
     expect(nodeToString(literal("Hello"))).toBe(
-      "literal(Hello,http://www.w3.org/2001/XMLSchema#string)",
+      "literal(Hello,namedNode(http://www.w3.org/2001/XMLSchema#string))",
     );
     expect(nodeToString(defaultGraph())).toBe("defaultGraph()");
   });

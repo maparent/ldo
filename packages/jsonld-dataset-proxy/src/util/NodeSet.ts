@@ -13,7 +13,7 @@ export function nodeToString(
     case "BlankNode":
       return `blankNode(${node.value})`;
     case "Literal":
-      return `literal(${node.value},${node.datatype.value})`;
+      return `literal(${node.value},namedNode(${node.datatype.value}))`;
     case "DefaultGraph":
       return "defaultGraph()";
   }

@@ -108,14 +108,21 @@ const testJsonldDatasetProxy = (patientContext: LdoJsonldContext) => () => {
       ),
     };
     tempDataset.forEach((tempQuad) => {
-      dataset.add(
-        quad(
-          tempQuad.subject,
-          tempQuad.predicate,
-          tempQuad.object,
-          subjectGraphMap[tempQuad.subject.value],
-        ),
-      );
+      if (
+        tempQuad.subject.termType !== "Quad" &&
+        tempQuad.object.termType !== "Quad" &&
+        tempQuad.subject.termType !== "Variable" &&
+        tempQuad.predicate.termType !== "Variable" &&
+        tempQuad.object.termType !== "Variable"
+      )
+        dataset.add(
+          quad(
+            tempQuad.subject,
+            tempQuad.predicate,
+            tempQuad.object,
+            subjectGraphMap[tempQuad.subject.value],
+          ),
+        );
     });
     const builder = await jsonldDatasetProxy(dataset, patientContext);
     return [
@@ -394,14 +401,20 @@ const testJsonldDatasetProxy = (patientContext: LdoJsonldContext) => () => {
         quad(
           namedNode("http://example.com/Observation1"),
           namedNode("http://hl7.org/fhir/notes"),
-          literal("Cool Notes", "http://www.w3.org/2001/XMLSchema#string"),
+          literal(
+            "Cool Notes",
+            namedNode("http://www.w3.org/2001/XMLSchema#string"),
+          ),
         ),
       );
       dataset.add(
         quad(
           namedNode("http://example.com/Observation1"),
           namedNode("http://hl7.org/fhir/notes"),
-          literal("Bad Notes", "http://www.w3.org/2001/XMLSchema#string"),
+          literal(
+            "Bad Notes",
+            namedNode("http://www.w3.org/2001/XMLSchema#string"),
+          ),
         ),
       );
       expect(observation.notes).toBe("Bad Notes");
@@ -881,7 +894,6 @@ const testJsonldDatasetProxy = (patientContext: LdoJsonldContext) => () => {
     it("allows rdf namedNodes to be added to a set", async () => {
       const [, observation] = await getTinyLoadedDataset();
       observation.subject?.roommate?.add(
-        // @ts-expect-error This isn't technically allowed by the generated types
         namedNode("http://example.com/Patient3"),
       );
       expect(observation.subject?.roommate?.map((r) => r["@id"])).toContain(
@@ -891,7 +903,7 @@ const testJsonldDatasetProxy = (patientContext: LdoJsonldContext) => () => {
 
     it("allows rdf bankNodes to be added to a set", async () => {
       const [, observation] = await getTinyLoadedDataset();
-      const blank = blankNode();
+      const blank = blankNode("b0");
       observation.subject?.roommate?.add(
         // @ts-expect-error This isn't technically allowed by the generated types
         blank,

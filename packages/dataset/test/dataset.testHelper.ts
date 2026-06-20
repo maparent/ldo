@@ -589,7 +589,7 @@ export default function testDataset(
         quad(
           namedNode("http://example.org/cartoons#Tom"),
           namedNode("https://example.org/age"),
-          literal("6", "http://www.w3.org/2001/XMLSchema#integer"),
+          literal("6", namedNode("http://www.w3.org/2001/XMLSchema#integer")),
         ),
       ]);
       expect(dataset.toString()).toBe(

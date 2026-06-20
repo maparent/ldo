@@ -24,7 +24,7 @@ export class BasicLdSet<T extends NonNullable<RawValue> = NonNullable<RawValue>>
     if (value[_getUnderlyingNode]) {
       return (value[_getUnderlyingNode] as NamedNode | BlankNode).value;
     } else if (!value["@id"]) {
-      return blankNode().value;
+      return blankNode("").value;
     } else if (typeof value["@id"] === "string") {
       return value["@id"];
     } else {

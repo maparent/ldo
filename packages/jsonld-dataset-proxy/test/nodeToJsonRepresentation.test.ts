@@ -1,7 +1,7 @@
 import { createDataset } from "@ldo/dataset";
 import { ContextUtil } from "../src/ContextUtil";
 import { nodeToJsonldRepresentation } from "../src/util/nodeToJsonldRepresentation";
-import { defaultGraph, literal } from "@ldo/rdf-utils";
+import { defaultGraph, literal, namedNode } from "@ldo/rdf-utils";
 import { ProxyContext } from "../src/index";
 import { describe, it, expect } from "vitest";
 
@@ -16,7 +16,10 @@ describe("objectToJsonRepresentation", () => {
   it("returns a string for hexBinary", () => {
     expect(
       nodeToJsonldRepresentation(
-        literal("F03493", "http://www.w3.org/2001/XMLSchema#hexBinary"),
+        literal(
+          "F03493",
+          namedNode("http://www.w3.org/2001/XMLSchema#hexBinary"),
+        ),
         extraParams,
       ),
     ).toBe("F03493");
@@ -27,7 +30,7 @@ describe("objectToJsonRepresentation", () => {
       nodeToJsonldRepresentation(
         literal(
           "<body></body>",
-          "http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML",
+          namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML"),
         ),
         extraParams,
       ),
@@ -39,7 +42,7 @@ describe("objectToJsonRepresentation", () => {
       nodeToJsonldRepresentation(
         literal(
           "http://example.com",
-          "http://www.w3.org/2001/XMLSchema#anyURI",
+          namedNode("http://www.w3.org/2001/XMLSchema#anyURI"),
         ),
         extraParams,
       ),
@@ -49,7 +52,7 @@ describe("objectToJsonRepresentation", () => {
   it("returns a string for an unrecognized datatype", () => {
     expect(
       nodeToJsonldRepresentation(
-        literal("meh", "http://weirddatatype.com"),
+        literal("meh", namedNode("http://weirddatatype.com")),
         extraParams,
       ),
     ).toBe("meh");

@@ -24,14 +24,14 @@ dataset.add(
   quad(
     namedNode("http://example.com/Person1"),
     namedNode("http://xmlns.com/foaf/0.1/age"),
-    literal("23", "http://www.w3.org/2001/XMLSchema#integer"),
+    literal("23", namedNode("http://www.w3.org/2001/XMLSchema#integer")),
   ),
 );
 dataset.add(
   quad(
     namedNode("http://example.com/Person1"),
     namedNode("http://xmlns.com/foaf/0.1/name"),
-    literal("John", "http://www.w3.org/2001/XMLSchema#string"),
+    literal("John", namedNode("http://www.w3.org/2001/XMLSchema#string")),
   ),
 );
 ```
